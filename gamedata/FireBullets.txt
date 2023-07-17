@@ -1,0 +1,24 @@
+"Games"
+{
+	"tf"
+	{
+		"Functions"
+		{
+			"CBaseEntity::FireBullets"
+			{
+				"offset"		"CBaseEntity::FireBullets"
+				"hooktype"		"entity"
+				"return"		"void"
+				"this"			"entity"
+			}
+		}
+		"Offsets"
+		{
+			"CBaseEntity::FireBullets"
+			{
+				"linux"		"118"
+				"windows"	"117"
+			}
+		}
+	}
+}

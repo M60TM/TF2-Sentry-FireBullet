@@ -1,0 +1,83 @@
+classname = "FireBullets_t"
+size = 81
+
+[properties.m_iShots]
+type = "int"
+offset = 0
+writable = true
+
+[properties.VecSrc]
+type = "float"
+length = 3
+offset = 4
+stride = 4
+writable = true
+
+[properties.VecDirShooting]
+type = "float"
+length = 3
+offset = 16
+stride = 4
+writable = true
+
+[properties.VecSpread]
+type = "float"
+length = 3
+offset = 28
+stride = 4
+writable = true
+
+[properties.m_flDistance]
+type = "float"
+offset = 40
+writable = true
+
+[properties.m_iAmmoType]
+type = "int"
+offset = 44
+writable = true
+
+[properties.m_iTracerFreq]
+type = "int"
+offset = 48
+writable = true
+
+[properties.m_flDamage]
+type = "float"
+offset = 52
+writable = true
+
+[properties.m_iPlayerDamage]
+type = "float"
+offset = 56
+writable = true
+
+[properties.m_nFlags]
+type = "int"
+offset = 60
+writable = true
+
+[properties.m_flDamageForceScale]
+type = "float"
+offset = 64
+writable = true
+
+[properties.m_pAttacker]
+type = "Address"
+offset = 68
+writable = true
+
+[properties.m_pAdditionalIgnoreEnt]
+type = "Address"
+offset = 72
+writable = true
+
+[properties.m_bPrimaryAttack]
+type = "bool"
+offset = 76
+writable = true
+
+[properties.m_bUseServerRandomSeed]
+type = "bool"
+offset = 77
+writable = true
