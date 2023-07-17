@@ -1,37 +1,25 @@
-# Ninja Project Template for SourceMod Plugins
+# [TF2] Sentry-FireBullet
+Hook Sentrygun's bullet fire.
 
-A project repository template that builds SourceMod plugins with [Ninja][].
+## Forwards
+You will get two forwards.
+```
+forward Action TF2_SentryFireBullet(int sentry, int builder, int &shots, const float src[3], const float dirShooting[3], float spread[3], float &distance, int &ammoType, int &tracerFreq, float &damage, int &playerDamage, int &flags, float &damageForceScale, int &attacker, int &ignoreEnt, bool &primaryAttack, bool &useServerRandomSeed);
+```
+```
+forward void TF2_SentryFireBulletPost(int sentry, int builder, int shots, const float src[3], const float dirShooting[3], const float spread[3], float distance, int ammoType, int tracerFreq, float damage, int playerDamage, int flags, float damageForceScale, int attacker, int ignoreEnt, bool primaryAttack, bool useServerRandomSeed);
+```
 
-## Template Setup
-
-1. [Use this template][] to create a new repository, then clone the resulting repository
-locally.
-    - If this is your first time with the template, read over the instructions provided in
-    `BUILD.md`.  The template is configured to build an example plugin immediately, so you'll
-    want to succeed at that before you start modifying.
-    - If you have an existing repository, you may want to instead copy `configure.py` and
-    `misc/`, as well as create / update your `.gitignore` to exclude generated outputs
-    (see this repository's version).
-2. Configure the project for your specific needs.
-    - Create script(s) in the `scripting/` directory.
-    - Add script(s) to the `plugins` list in the `configure.py` file.
-    Only scripts compiled directly should be added (that is, don't add `#include`d `.sp` files).
-    - Add file paths that you want to copy to the build output (gamedata, configs, include,
-    non-base scripts) to the `copy_files` list.
-    - To add third-party includes, copy them into the project in some directory, then add that
-    path to the `include_dirs` list in `configure.py`.
-    - Look over the rest of `configure.py` and modify settings to your liking.
-    - If you need to stray from the existing build instructions, note any changes under the
-    building section.
-3. Edit this README for your project.
-    - Remove this template setup section.
-    - Make sure to point readers to the project's `BUILD.md`, as they may not be familiar with
-    how to build the project.
-    - An example section you can preserve is provided below, though you're not required to
-    follow it exactly.
-
-[Use this template]: https://github.com/nosoop/NinjaBuild-SMPlugin/generate
-
+## Parameter(As far as I know)
+- `shots`: Amounts of bullet per fire. If you set this to 5, sentry will fire 5 bullets per fire.
+- `spread[3]`: Vector of spread.
+- `distance`: Distance of bullet's max reach.
+- `tracerFreq`: Tracer's Frequency.
+- `damage` and `playerDamage`: Bullet's damage. But if victim is player, game will use playerDamage instead of damage.
+- `flags`: Check out `FireBulletsFlags_t` in tf2_sentryfirebullet.inc.
+- `damageForceScale`: Bullet's force scale.
+- `attacker`: Attacker. Default value is builder's index.
+- `ignoreEnt`: Define target who bullet will ignore. Default value is -1(none). 
 ----
 
 ## Building
