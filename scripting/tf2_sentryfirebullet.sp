@@ -11,7 +11,7 @@
 #include <stocksoup/tf/entity_prop_stocks>
 #include <stocksoup/memory>
 
-#include <classdefs/FireBullets_t.sp>
+#include <classdefs/firebulletsinfo_t.sp>
 
 GlobalForward g_FwdSentryFireBulletPre;
 GlobalForward g_FwdSentryFireBulletPost;
@@ -140,8 +140,8 @@ bool CallFireBulletsInfoForward(GlobalForward fwd, int sentry, int builder, Fire
 	int flags = info.m_nFlags;
 	float damageForceScale = info.m_flDamageForceScale;
 
-	int attacker = GetEntityFromAddress(info.m_pAttacker);
-	int ignoreEnt = GetEntityFromAddress(info.m_pAdditionalIgnoreEnt);
+	int attacker = (info.m_pAttacker == Address_Null) ? -1 : GetEntityFromAddress(info.m_pAttacker);
+	int ignoreEnt = (info.m_pAdditionalIgnoreEnt == Address_Null) ? -1 : GetEntityFromAddress(info.m_pAdditionalIgnoreEnt);
 	
 	bool primaryAttack = info.m_bPrimaryAttack;
 	bool useServerRandomSeed = info.m_bUseServerRandomSeed;
@@ -222,8 +222,8 @@ void CallFireBulletsInfoPostForward(GlobalForward fwd, int sentry, int builder, 
 	int flags = info.m_nFlags;
 	float damageForceScale = info.m_flDamageForceScale;
 
-	int attacker = GetEntityFromAddress(info.m_pAttacker);
-	int ignoreEnt = GetEntityFromAddress(info.m_pAdditionalIgnoreEnt);
+	int attacker = (info.m_pAttacker == Address_Null) ? -1 : GetEntityFromAddress(info.m_pAttacker);
+	int ignoreEnt = (info.m_pAdditionalIgnoreEnt == Address_Null) ? -1 : GetEntityFromAddress(info.m_pAdditionalIgnoreEnt);
 	
 	bool primaryAttack = info.m_bPrimaryAttack;
 	bool useServerRandomSeed = info.m_bUseServerRandomSeed;
