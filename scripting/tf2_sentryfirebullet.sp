@@ -176,7 +176,6 @@ bool CallFireBulletsInfoForward(GlobalForward fwd, int sentry, int builder, Fire
 			info.SetVecSpread(spread);
 
 			info.m_flDistance = distance;
-			info.m_iAmmoType = ammoType;
 			info.m_iTracerFreq = tracerFreq;
 			info.m_flDamage = damage;
 			info.m_iPlayerDamage = playerDamage;
