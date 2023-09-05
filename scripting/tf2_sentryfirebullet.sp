@@ -64,6 +64,7 @@ public void OnPluginStart() {
 	g_DHookSentryFireBullet = GetDHooksHookDefinition(data, "CBaseEntity::FireBullets");
 	g_DHookSentryFireBullet.AddParam(HookParamType_Int);
 
+	ClearDHooksDefinitions();
 	delete data;
 
 	g_FwdSentryFireBulletPre = new GlobalForward("TF2_SentryFireBullet", ET_Hook, Param_Cell, Param_Cell, Param_CellByRef, Param_Array, Param_Array, Param_Array, Param_FloatByRef, Param_CellByRef, Param_FloatByRef, Param_CellByRef, Param_CellByRef, Param_FloatByRef, Param_CellByRef, Param_CellByRef);
