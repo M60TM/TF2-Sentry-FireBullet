@@ -39,8 +39,7 @@ enum struct FireBullets_t
 }
 */
 
-public Plugin myinfo =
-{
+public Plugin myinfo = {
 	name        = "[TF2] Sentry Fire Bullet",
 	author      = "Sandy and AzulFlamaWallon",
 	description = "Hook Sentry's Bullet Fire.",
@@ -50,18 +49,15 @@ public Plugin myinfo =
 
 public APLRes AskPluginLoad2(Handle hPlugin, bool late, char[] error, int maxlen) {
 	RegPluginLibrary("tf2_sentryfirebullet");
-
+	
 	return APLRes_Success;
 }
 
-public void OnPluginStart(){
+public void OnPluginStart() {
 	GameData data = new GameData("FireBullets");
-	if (data == null)
-	{
+	if (data == null) {
 		SetFailState("Missing FireBullets.txt");
-	}
-	else if (!ReadDHooksDefinitions("FireBullets"))
-	{
+	} else if (!ReadDHooksDefinitions("FireBullets")) {
 		SetFailState("Failed to read dhooks definitions of FireBullets.txt");
 	}
 
@@ -75,28 +71,27 @@ public void OnPluginStart(){
 	g_FwdSentryFireBulletPost = new GlobalForward("TF2_SentryFireBulletPost", ET_Ignore, Param_Cell, Param_Cell, Param_Cell, Param_Array, Param_Array, Param_Array, Param_Float, Param_Cell, Param_Float, Param_Cell, Param_Cell, Param_Float, Param_Cell, Param_Cell);
 }
 
-public void OnEntityCreated(int entity, const char[] classname){
-	if (IsValidEntity(entity) && StrContains(classname, "obj_sentrygun") != -1)
+public void OnEntityCreated(int entity, const char[] classname) {
+	if (IsValidEntity(entity) && StrContains(classname, "obj_sentrygun") != -1) {
 		RequestFrame(OnSentryGunCreated, entity);
+	}
 }
 
-public void OnSentryGunCreated(int sentry){
+public void OnSentryGunCreated(int sentry) {
 	g_DHookSentryFireBullet.HookEntity(Hook_Pre, sentry, OnSentryFireBulletsPre);
 	g_DHookSentryFireBullet.HookEntity(Hook_Post, sentry, OnSentryFireBulletsPost);
 }
 
 // CBaseEntity::FireBullets(const FireBullets_t &_Info)
-MRESReturn OnSentryFireBulletsPre(int sentry, DHookParam hParams)
-{
-	if(!IsValidEntity(sentry))
+MRESReturn OnSentryFireBulletsPre(int sentry, DHookParam hParams) {
+	if (!IsValidEntity(sentry))
 		return MRES_Ignored;
 
 	FireBullets_t info = FireBullets_t.FromAddress(hParams.Get(1));
 	
 	int builder = TF2_GetObjectBuilder(sentry);
 
-	if (!IsValidClient(builder))
-	{
+	if (!IsValidClient(builder)) {
 		return MRES_Ignored;
 	}
 
@@ -105,17 +100,16 @@ MRESReturn OnSentryFireBulletsPre(int sentry, DHookParam hParams)
 	return result ? MRES_Supercede : MRES_Ignored;
 }
 
-MRESReturn OnSentryFireBulletsPost(int sentry, DHookParam hParams)
-{
-	if(!IsValidEntity(sentry))
+MRESReturn OnSentryFireBulletsPost(int sentry, DHookParam hParams) {
+	if (!IsValidEntity(sentry)) {
 		return MRES_Ignored;
+	}
 
 	FireBullets_t info = FireBullets_t.FromAddress(hParams.Get(1));
 	
 	int builder = TF2_GetObjectBuilder(sentry);
 
-	if (!IsValidClient(builder))
-	{
+	if (!IsValidClient(builder)) {
 		return MRES_Ignored;
 	}
 
@@ -162,14 +156,11 @@ bool CallFireBulletsInfoForward(GlobalForward fwd, int sentry, int builder, Fire
 	Call_Finish(result);
 	
 	bool supercede;
-	switch (result)
-	{
-		case Plugin_Handled, Plugin_Stop:
-		{
+	switch (result) {
+		case Plugin_Handled, Plugin_Stop: {
 			supercede = true;
 		}
-		case Plugin_Changed:
-		{
+		case Plugin_Changed: {
 			info.m_iShots = shots;
 			
 			info.SetVecSrc(src);
@@ -187,8 +178,7 @@ bool CallFireBulletsInfoForward(GlobalForward fwd, int sentry, int builder, Fire
 
 			supercede = false;
 		}
-		case Plugin_Continue:
-		{
+		case Plugin_Continue: {
 			supercede = false;
 		}
 	}
@@ -213,7 +203,7 @@ void CallFireBulletsInfoPostForward(GlobalForward fwd, int sentry, int builder, 
 
 	int attacker = (info.m_pAttacker == Address_Null) ? -1 : GetEntityFromAddress(info.m_pAttacker);
 	int ignoreEnt = (info.m_pAdditionalIgnoreEnt == Address_Null) ? -1 : GetEntityFromAddress(info.m_pAdditionalIgnoreEnt);
-	
+
 	Call_StartForward(fwd);
 	Call_PushCell(sentry);
 	Call_PushCell(builder);
@@ -232,19 +222,22 @@ void CallFireBulletsInfoPostForward(GlobalForward fwd, int sentry, int builder, 
 	Call_Finish();
 }
 
-stock bool IsValidClient(int client, bool replaycheck=true)
-{
-	if(client<=0 || client>MaxClients)
+stock bool IsValidClient(int client, bool replaycheck = true) {
+	if(client <= 0 || client > MaxClients) {
 		return false;
+	}
 
-	if(!IsClientInGame(client))
+	if(!IsClientInGame(client)) {
 		return false;
+	}
 
-	if(GetEntProp(client, Prop_Send, "m_bIsCoaching"))
+	if(GetEntProp(client, Prop_Send, "m_bIsCoaching")) {
 		return false;
+	}
 
-	if(replaycheck && (IsClientSourceTV(client) || IsClientReplay(client)))
+	if(replaycheck && (IsClientSourceTV(client) || IsClientReplay(client))) {
 		return false;
+	}
 
 	return true;
 }
